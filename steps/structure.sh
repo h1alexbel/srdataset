@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
@@ -19,15 +20,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-architect:
-  - h1alexbel
-merge:
-  script: |
-    make lint test
-release:
-  script: |
-    [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_]+)?$ ]] || exit -1
-    sed -i "s/0\.0\.0/${tag}/g" version.txt
-    make lint test
-    git commit -am "set version to ${tag}"
+
+set -e
+set -o pipefail
+

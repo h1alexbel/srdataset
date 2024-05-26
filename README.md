@@ -1,4 +1,4 @@
-# Sample GitHub repositories dataset (SRdataset)
+# GitHub repositories dataset with SRs (sample repositories)
 
 ## How to use
 
@@ -43,3 +43,7 @@ before sending us your pull request please run full make build:
 ```bash
 make lint test
 ```
+
+[GitHub PAT]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+[GitHub PATs]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+[search query]: https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
