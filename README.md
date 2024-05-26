@@ -6,7 +6,7 @@ TBD..
 
 ## How to build
 
-To build a new version of dataset run this either on cloud VM or locally:
+To build a new version of dataset run this:
 
 ```bash
 docker run --detach --name=dataset --rm --volume "$(pwd):/dataset" \
