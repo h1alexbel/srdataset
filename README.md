@@ -1,15 +1,13 @@
 # GitHub repositories dataset with SRs (sample repositories)
 
-## How to use
-
 TBD..
 
-## How to build
+## How to use
 
 To build a new version of dataset run this:
 
 ```bash
-docker run --detach --name=dataset --rm --volume "$(pwd):/dataset" \
+docker run --detach --name=srdataset --rm --volume "$(pwd):/srdataset" \
   -e "GITHUB_TOKEN=XXX" \
   -e "DESTINATION=h1alexbel/samples-filter" \
   -e "DESTINATION_BRANCH=dataset" \
@@ -18,7 +16,7 @@ docker run --detach --name=dataset --rm --volume "$(pwd):/dataset" \
   -e "END_DATE=2024-05-01" \
   -e "PATS=pats.txt" \
   --oom-kill-disable \
-  h1alexbel/srdataset:0.0.1 "make -e >/dataset/make.log 2>&1"
+  abialiauski/srdataset:0.0.1
 ```
 
 Where `XXX` is a [GitHub PAT] with WRITE permissions to

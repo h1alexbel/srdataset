@@ -19,3 +19,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+.SHELLFLAGS: -e -o pipefail -c
+.ONESHELL:
+.PHONY: install collect metrics
+.SILENT:
+
+## The shell to use.
+SHELL := bash
+
+# Install.
+install:
+	echo "Installing..."
+
+# Collect repositories from GitHub API.
+collect:
+	echo "Collecting..."
+
+# Measure repositories with SR metrics.
+metrics:
+	echo "Measuring SRs..."

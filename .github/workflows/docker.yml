@@ -38,9 +38,9 @@ jobs:
       - name: Push to docker.io
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: h1alexbel/srdataset
+          image: abialiauski/srdataset
           tags: ${{ github.ref_name }}, latest
           dockerfile: Dockerfile
           registry: docker.io
-          username: h1alexbel
+          username: abialiauski
           password: ${{ secrets.DOCKER_PASSWORD }}

@@ -36,4 +36,4 @@ ENV LOCAL /srdataset
 COPY steps/install.sh /srdataset/steps/
 RUN sh steps/install.sh
 COPY . /srdataset
-ENTRYPOINT make
+ENTRYPOINT make install collect metrics
