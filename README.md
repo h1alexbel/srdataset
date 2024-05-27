@@ -1,6 +1,18 @@
-# GitHub repositories dataset with SRs (sample repositories)
+# srdataset
 
-TBD..
+[![py](https://github.com/h1alexbel/srdataset/actions/workflows/make.yml/badge.svg)](https://github.com/h1alexbel/srdataset/actions/workflows/make.yml)
+[![PDD status](http://www.0pdd.com/svg?name=h1alexbel/srdataset)](http://www.0pdd.com/p?name=h1alexbel/srdataset)
+[![Hits-of-Code](https://hitsofcode.com/github/h1alexbel/srdataset)](https://hitsofcode.com/view/github/h1alexbel/srdataset)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/h1alexbel/srdataset/blob/master/LICENSE.txt)
+
+SRdataset is an [unlabeled] dataset of GitHub repositories containing SRs
+(sample repositories).
+
+**Motivation**. During work on models for [samples-filter] project, we
+discovered the need for the automation of the dataset building process
+on remote servers, since we need to collect big amount of data being productive
+in our research. In order to do this, we integrated [ghminer] with a few
+infrastructure scripts, and packaged all of that into Docker container.
 
 ## How to use
 
@@ -31,6 +43,10 @@ The building process can take a while. After it completed, you should have
 `GITHUB_TOKEN`, it should be pushed to `DESTINATION` right into
 `DESTINATION_BRANCH`.
 
+## How it works
+
+TBD..
+
 ## How to contribute
 
 Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).
@@ -42,6 +58,9 @@ before sending us your pull request please run full make build:
 make lint test
 ```
 
+[unlabeled]: https://en.wikipedia.org/wiki/Unsupervised_learning
+[samples-filter]: https://github.com/h1alexbel/samples-filter
+[ghminer]: https://github.com/h1alexbel/ghminer
 [GitHub PAT]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 [GitHub PATs]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 [search query]: https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
