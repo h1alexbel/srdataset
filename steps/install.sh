@@ -22,11 +22,6 @@
 # SOFTWARE.
 
 set -e
-set -o pipefail
 
-python3 --version
-pip --version
-python3 -m pip install --upgrade pip
-python3 -m pip install -r "../requirements.txt"
 npm install -g ghminer@0.0.3
 echo "All dependencies are installed and up to date! Now you can run 'make' and build the dataset."
