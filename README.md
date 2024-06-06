@@ -45,7 +45,23 @@ The building process can take a while. After it completed, you should have
 
 ## How it works
 
-TBD..
+First, we collect GitHub repositories based on query parameters, with a help of
+[ghminer]. Then, for each repository we compute the following metrics:
+
+* CPD, commits per day
+* RC, published releases to commits ratio
+* IC, total issues to commits ratio
+
+Finally, we clean and structure the dataset into `repos.csv` file, so each row
+contain:
+
+* `name`: repository full name, e.g. `redisson/redisson-examples`.
+* `readme`: repository README.md file.
+* `description`: repository description.
+* `topics`: a set of repository topics, e.g. `[apache, streaming, kafka]`
+* `CPD`: commits per day calculated metric.
+* `RC`: published releases to commits ratio.
+* `IC`: issues to commits ratio.
 
 ## How to contribute
 
