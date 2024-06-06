@@ -35,13 +35,13 @@ RUN apt-get install -y --no-install-recommends python3-venv
 
 # Setup Python venv.
 WORKDIR /srdataset
-RUN python3 -m venv .venv && /srdataset/.venv/bin/python -m pip install pandas
+COPY requirements.txt /srdataset/
+RUN python3 -m venv .venv && /srdataset/.venv/bin/python -m pip install -r requirements.txt
 ENV PYTHON=/srdataset/.venv/bin/python
 
 COPY Makefile /srdataset/
 ENV LOCAL /srdataset
 COPY steps/install.sh /srdataset/steps/
-COPY steps/requirements.txt /srdataset/steps/
 RUN sh steps/install.sh
 COPY . /srdataset
 ENTRYPOINT make collect metrics
