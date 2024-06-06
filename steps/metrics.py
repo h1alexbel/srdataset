@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
@@ -20,7 +19,30 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import pandas as pd
 
-set -e
-set -o pipefail
-
+frame = pd.read_csv('results.csv')
+frame["ic"] = frame["issues"] / frame["commits"]
+# @todo #7:30min Compute CPD and RC metrics too.
+#  We need to compute CPD and RC metrics too, however for now we don't have
+#  the proper dataset after ghminer execution. Need to collect required data
+#  first, and then compute CPDs and RCs. Don't forget to remove this puzzle.
+frame.drop(
+    columns=[
+        "branch",
+        "createdAt",
+        "lastCommitDate",
+        "lastReleaseDate",
+        "contributors",
+        "pulls",
+        "commits",
+        "issues",
+        "forks",
+        "stars",
+        "license",
+        "language",
+        "diskUsage"
+    ],
+    inplace=True
+)
+frame.to_csv("repos.csv", index=False)

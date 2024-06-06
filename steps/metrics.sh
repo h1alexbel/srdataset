@@ -24,4 +24,5 @@
 set -e
 set -o pipefail
 
-# CPD, RC, IC
+# Compute CPD, RC, IC metrics.
+python3 metrics.py
