@@ -23,5 +23,6 @@
 
 set -e
 
+# Install ghminer.
 npm install -g ghminer@0.0.3
 echo "All dependencies are installed and up to date! Now you can run 'make' and build the dataset."

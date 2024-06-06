@@ -24,6 +24,14 @@
 set -e
 set -o pipefail
 
+# create pats.txt > $PATS
+# stars:2..100000 size:>=20 mirror:false template:false topic:(c | python | java | javascript | ruby)
+
+# java=32,258
+# c=10,434
+# python=86,627
+# javascript=72,496
+# ruby=4,997
 declare -a args=( \
         "--query=${SEARCH_QUERY}" \
         "--start=${START_DATE}" \
@@ -32,3 +40,8 @@ declare -a args=( \
         "--tokens=${PATS}"
 )
 ghminer "${args[@]}"
+if [ ! -f result.csv ]; then
+  echo "File result.csv was not created!"
+  echo "Failing..."
+  exit 0
+fi

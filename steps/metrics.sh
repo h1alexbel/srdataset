@@ -24,4 +24,7 @@
 set -e
 set -o pipefail
 
-# CPD, RC, IC
+# Compute CPD, RC, IC metrics.
+cd steps
+echo "Measuring SRs..."
+$PYTHON metrics.py
