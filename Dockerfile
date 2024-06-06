@@ -29,11 +29,19 @@ RUN apt-get update -y --fix-missing
 RUN apt-get install -y --no-install-recommends make=4.3-4.1build2
 RUN apt-get install -y --no-install-recommends git
 RUN apt-get install -y --no-install-recommends npm
+RUN apt-get install -y --no-install-recommends python3
+RUN apt-get install -y --no-install-recommends python3-pip
+RUN apt-get install -y --no-install-recommends python3-venv
 
+# Setup Python venv.
 WORKDIR /srdataset
+RUN python3 -m venv .venv && /srdataset/.venv/bin/python -m pip install pandas
+ENV PYTHON=/srdataset/.venv/bin/python
+
 COPY Makefile /srdataset/
 ENV LOCAL /srdataset
 COPY steps/install.sh /srdataset/steps/
+COPY steps/requirements.txt /srdataset/steps/
 RUN sh steps/install.sh
 COPY . /srdataset
-ENTRYPOINT make install collect metrics
+ENTRYPOINT make collect metrics

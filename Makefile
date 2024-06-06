@@ -38,7 +38,7 @@ test:
 
 # Install.
 install:
-	echo "Installing..."
+	chmod +x steps/install.sh &&./steps/install.sh
 
 # Collect repositories from GitHub API.
 collect:
@@ -46,4 +46,4 @@ collect:
 
 # Measure repositories with SR metrics.
 metrics:
-	echo "Measuring SRs..."
+	chmod +x steps/metrics.sh &&./steps/metrics.sh
