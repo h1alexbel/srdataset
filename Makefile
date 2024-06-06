@@ -42,7 +42,7 @@ install:
 
 # Collect repositories from GitHub API.
 collect:
-	echo "Collecting..."
+	chmod +x steps/collect.sh &&./steps/collect.sh
 
 # Measure repositories with SR metrics.
 metrics:
