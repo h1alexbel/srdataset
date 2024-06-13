@@ -19,24 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: make
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
-      - name: Test
-        run: |
-          make env test
+import markdown
+from bs4 import BeautifulSoup
+
+"""
+Translate markdown to plain text.
+"""
+
+
+def to_text(input):
+    return BeautifulSoup(markdown.markdown(input), "html.parser").get_text(
+        separator=' ',
+        strip=True
+    )

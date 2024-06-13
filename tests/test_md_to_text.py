@@ -19,24 +19,37 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: make
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
-      - name: Test
-        run: |
-          make env test
+import unittest
+from steps.md_to_text import to_text
+
+"""
+Test case for MdToText.
+"""
+
+
+class TestMdToText(unittest.TestCase):
+
+    def test_translates_markdown_to_text(self):
+        text = to_text(
+            """
+# Web Attack Cheat Sheet
+
+## Table of Contents
+- [Discovering](#discovering)
+  - [Targets](#targets)
+  - [IP Enumeration](#ip-enumeration)
+  - [Subdomain Enumeration](#subdomain-enumeration)
+  - [Wayback Machine](#wayback-machine)
+  - [Cache](#cache)
+            """
+        )
+        expected = (
+            "Web Attack Cheat Sheet Table of Contents Discovering Targets IP "
+            "Enumeration Subdomain Enumeration "
+            "Wayback Machine Cache"
+        )
+        self.assertEqual(
+            text,
+            expected,
+            f"Translated text {text} does not match with expected {expected}"
+        )

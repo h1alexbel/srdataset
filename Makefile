@@ -22,19 +22,21 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: install collect metrics test
+.PHONY: env install collect metrics test
 .SILENT:
 
 ## The shell to use.
 SHELL := bash
 
-# @todo #1:45min Create test script for the whole package.
-#  We should create a script that would run all tests we have.
-#  Let's try to copy the model from cam shell tests:
-#  https://github.com/yegor256/cam/tree/master/tests. Don't forget to remove
-#  this puzzle.
+# Setup environment.
+env:
+	python3 -m pip install --upgrade pip
+	pip3 install -r requirements.txt
+
+# Test.
 test:
-	echo "Testing..."
+	export PYTHONPATH=.
+	python3 -m pytest tests
 
 # Install.
 install:
