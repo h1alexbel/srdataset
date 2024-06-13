@@ -2,4 +2,4 @@ pandas==2.2.2
 markdown==3.6
 numpy==1.26.4
 beautifulsoup4==4.12.3
-pytest==8.2.1
+pytest==8.2.2
