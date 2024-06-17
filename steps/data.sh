@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
@@ -20,32 +21,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: env install collect metrics test
-.SILENT:
+set -e
+set -o pipefail
 
-## The shell to use.
-SHELL := bash
-
-# Setup environment.
-env:
-	python3 -m pip install --upgrade pip
-	pip3 install -r requirements.txt
-
-# Test.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest tests
-
-# Install.
-install:
-	chmod +x steps/install.sh &&./steps/install.sh
-
-# Collect repositories from GitHub API.
-collect:
-	chmod +x steps/collect.sh &&./steps/collect.sh
-
-# Formalize and prepare collected dataset.
-formalize:
-	chmod +x steps/formalize.sh &&./steps/formalize.sh
+cd steps
+$PYTHON structure.py
+$PYTHON filter.py

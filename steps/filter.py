@@ -19,27 +19,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import pandas as pd
-
-from english import english
-from langdetect import DetectorFactory
 
 """
 Filter dataset.
 """
-print("Start filtering...")
-DetectorFactory.seed = 0
-frame = pd.read_csv("results.csv")
-start = len(frame)
-print(f"Repositories in {start}")
-frame = frame.dropna(subset=["readme", "description", "topics"])
-skipped = start - len(frame)
-after_null = len(frame)
-print(f"Skipped {skipped} repositories with NULL in rows")
-frame = frame[frame["description"].apply(english)]
-frame = frame[frame["readme"].apply(english)]
-skipped_non_english = after_null - len(frame)
-print(f"Skipped {skipped_non_english} non-english repositories")
-print(f"Total skipped: {skipped + skipped_non_english}")
-print(f"Staying with {len(frame)} good repositories")
-frame.to_csv("filtered.csv", index=False)
+from apply_filter import apply
+
+apply("repos.csv")

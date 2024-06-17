@@ -19,33 +19,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import os
+import unittest
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: env install collect metrics test
-.SILENT:
+import pandas as pd
 
-## The shell to use.
-SHELL := bash
+from steps.apply_filter import apply
 
-# Setup environment.
-env:
-	python3 -m pip install --upgrade pip
-	pip3 install -r requirements.txt
+"""
+Test case for Apply Filter.
+"""
 
-# Test.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest tests
 
-# Install.
-install:
-	chmod +x steps/install.sh &&./steps/install.sh
+class TestApplyFilter(unittest.TestCase):
 
-# Collect repositories from GitHub API.
-collect:
-	chmod +x steps/collect.sh &&./steps/collect.sh
+    def tearDown(self):
+        os.remove("filtered.csv")
 
-# Formalize and prepare collected dataset.
-formalize:
-	chmod +x steps/formalize.sh &&./steps/formalize.sh
+    def test_filters_illegal_repos(self):
+        frame = apply("tests/test.csv").reset_index(drop=True)
+        expected = pd.read_csv("tests/filter-expected.csv")
+        self.assertTrue(
+            frame.equals(expected),
+            f"Filtered frame {frame} does not match with expected {expected}"
+        )

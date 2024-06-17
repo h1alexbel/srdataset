@@ -19,33 +19,32 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import pandas as pd
+from langdetect import DetectorFactory
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: env install collect metrics test
-.SILENT:
+from steps.english import english
 
-## The shell to use.
-SHELL := bash
+"""
+Apply filtering on a CSV file.
+"""
 
-# Setup environment.
-env:
-	python3 -m pip install --upgrade pip
-	pip3 install -r requirements.txt
 
-# Test.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest tests
-
-# Install.
-install:
-	chmod +x steps/install.sh &&./steps/install.sh
-
-# Collect repositories from GitHub API.
-collect:
-	chmod +x steps/collect.sh &&./steps/collect.sh
-
-# Formalize and prepare collected dataset.
-formalize:
-	chmod +x steps/formalize.sh &&./steps/formalize.sh
+def apply(csv):
+    print("Start filtering...")
+    DetectorFactory.seed = 0
+    frame = pd.read_csv(csv)
+    start = len(frame)
+    print(f"Repositories in {start}")
+    frame = frame.dropna(subset=["readme", "description", "topics"])
+    skipped = start - len(frame)
+    after_null = len(frame)
+    print(f"Skipped {skipped} repositories with NULL in rows")
+    frame = frame[frame["description"].apply(english)]
+    frame = frame[frame["readme"].apply(english)]
+    skipped_non_english = after_null - len(frame)
+    print(f"Skipped {skipped_non_english} non-english repositories")
+    print(f"Total skipped: {skipped + skipped_non_english}")
+    print(f"Staying with {len(frame)} good repositories")
+    frame.to_csv("filtered.csv", index=False)
+    print(frame)
+    return frame
