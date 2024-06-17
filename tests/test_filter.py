@@ -43,3 +43,11 @@ class TestApplyFilter(unittest.TestCase):
             frame.equals(expected),
             f"Filtered frame {frame} does not match with expected {expected}"
         )
+
+    def test_adds_empty_for_null_topics(self):
+        frame = apply("tests/test-with-null-topics.csv").reset_index(drop=True)
+        expected = pd.read_csv("tests/filtered-with-null-topics.csv")
+        self.assertTrue(
+            frame.equals(expected),
+            f"Filtered frame {frame} does not match with expected {expected}"
+        )
