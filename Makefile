@@ -32,6 +32,7 @@ SHELL := bash
 env:
 	python3 -m pip install --upgrade pip
 	pip3 install -r requirements.txt
+	pip3 install .
 
 # Test.
 test:
