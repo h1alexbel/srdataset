@@ -30,11 +30,12 @@ declare -a args=( \
         "--start=${START_DATE}" \
         "--end=${END_DATE}" \
         "--date=created" \
-        "--tokens=${PATS}"
+        "--tokens=${PATS}" \
+        "--filename=${CSV}"
 )
 ghminer "${args[@]}"
-if [ ! -f result.csv ]; then
-  echo "File result.csv was not created!"
+if [ ! -f "${CSV}.csv" ]; then
+  echo "File ""${CSV}.csv"" was not created!"
   echo "Failing..."
-  exit 0
+  exit 1
 fi
