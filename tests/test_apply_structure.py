@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,26 +17,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import os
+import unittest
+
+import pandas as pd
 
 from steps.apply_structure import structure
 
-csv = os.environ["CSV"]
-frame = structure(
-    csv, [
-        "repo",
-        "readme",
-        "description",
-        "topics",
-        "releases",
-        "contributors",
-        "pulls",
-        "commits",
-        "issues",
-        "branches",
-        "workflows"
-    ]
-)
-frame.to_csv(f"{csv}.csv")
-print(f"Structured {csv}.csv ({len(frame)}):")
-print(frame.head())
+"""
+Test cases for apply_structure.
+"""
+
+
+class TestApplyStructure(unittest.TestCase):
+
+    def test_structures_csv(self):
+        frame = structure("tests/input", ["add"])
+        expected = pd.read_csv("tests/structured-input.csv")
+        self.assertTrue(
+            frame.equals(expected),
+            f"Structured frame {frame} does not match with expected {expected}"
+        )
