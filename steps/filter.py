@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
@@ -23,6 +24,6 @@
 """
 Filter dataset.
 """
-from apply_filter import apply
+from steps.apply_filter import apply
 
 apply("repos.csv")

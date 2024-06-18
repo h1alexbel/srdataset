@@ -1,5 +1,4 @@
-# The MIT License (MIT)
-#
+#!/usr/bin/env python3
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,19 +18,26 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from langdetect import detect
+import os
 
-"""
-Text in english or not?
-"""
+from steps.apply_structure import structure
 
-
-def english(text):
-    """
-    Skips non-english text.
-    """
-    try:
-        detect(text)
-    except:
-        return False
-    return detect(text) == 'en'
+csv = os.environ["CSV"]
+frame = structure(
+    csv, [
+        "repo",
+        "readme",
+        "description",
+        "topics",
+        "releases",
+        "contributors",
+        "pulls",
+        "commits",
+        "issues",
+        "branches",
+        "workflows"
+    ]
+)
+frame.to_csv(f"{csv}.csv")
+print(f"Structured {csv}.csv ({len(frame)}):")
+print(frame.head())

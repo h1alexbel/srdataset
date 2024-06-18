@@ -1,5 +1,3 @@
-# The MIT License (MIT)
-#
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,19 +17,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from langdetect import detect
+import pandas as pd
 
 """
-Text in english or not?
+Structure input CSV.
 """
 
 
-def english(text):
-    """
-    Skips non-english text.
-    """
-    try:
-        detect(text)
-    except:
-        return False
-    return detect(text) == 'en'
+def structure(csv, columns):
+    frame = pd.read_csv(f"{csv}.csv")
+    print(f"Input {csv}.csv ({len(frame)}):")
+    print(f"Columns to stay with: {columns}.")
+    print(frame.head())
+    frame = frame[columns]
+    return frame

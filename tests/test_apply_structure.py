@@ -1,5 +1,3 @@
-# The MIT License (MIT)
-#
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,19 +17,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from langdetect import detect
+import unittest
+
+import pandas as pd
+
+from steps.apply_structure import structure
 
 """
-Text in english or not?
+Test cases for apply_structure.
 """
 
 
-def english(text):
-    """
-    Skips non-english text.
-    """
-    try:
-        detect(text)
-    except:
-        return False
-    return detect(text) == 'en'
+class TestApplyStructure(unittest.TestCase):
+
+    def test_structures_csv(self):
+        frame = structure("tests/input", ["add"])
+        expected = pd.read_csv("tests/structured-input.csv")
+        self.assertTrue(
+            frame.equals(expected),
+            f"Structured frame {frame} does not match with expected {expected}"
+        )

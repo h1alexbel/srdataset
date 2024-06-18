@@ -19,19 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from langdetect import detect
 
 """
-Text in english or not?
+Root package.
 """
-
-
-def english(text):
-    """
-    Skips non-english text.
-    """
-    try:
-        detect(text)
-    except:
-        return False
-    return detect(text) == 'en'
