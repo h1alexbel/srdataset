@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
@@ -20,12 +19,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-"""
-Filter dataset.
-"""
 import os
-from steps.apply_filter import apply
 
-csv = os.environ["CSV"]
-apply(f"{csv}.csv").to_csv(csv, index=False)
+import pandas as pd
+
+"""
+Prepare dataset with numerics only.
+"""
+print("Preparing numerics dataset...")
+frame = pd.read_csv(f"{os.environ['CSV']}.csv")
+frame = frame[
+    [
+        "repo",
+        "releases",
+        "contributors",
+        "pulls",
+        "commits",
+        "issues",
+        "branches",
+        "workflows"
+    ]
+]
+frame.to_csv("numerics.csv", index=False)
+print("Numerics dataset:")
+print(frame)

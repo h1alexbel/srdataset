@@ -19,7 +19,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import os
 import unittest
 
 import pandas as pd
@@ -32,9 +31,6 @@ Test case for Apply Filter.
 
 
 class TestApplyFilter(unittest.TestCase):
-
-    def tearDown(self):
-        os.remove("filtered.csv")
 
     def test_filters_illegal_repos(self):
         frame = apply("tests/test.csv").reset_index(drop=True)

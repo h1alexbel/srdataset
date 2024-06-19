@@ -48,6 +48,5 @@ def apply(csv):
     print(f"Skipped {skipped_non_english} non-english repositories")
     print(f"Total skipped: {skipped + skipped_non_english}")
     print(f"Staying with {len(frame)} good repositories")
-    frame.to_csv("filtered.csv", index=False)
     print(frame)
     return frame
