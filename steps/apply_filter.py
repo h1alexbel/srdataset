@@ -23,6 +23,7 @@ import pandas as pd
 from langdetect import DetectorFactory
 
 from steps.english import english
+from steps.md_to_text import to_text
 
 """
 Apply filtering on a CSV file.
@@ -41,6 +42,7 @@ def apply(csv):
     after_null = len(frame)
     print(f"Skipped {skipped} repositories with NULL in rows")
     frame = frame[frame["description"].apply(english)]
+    frame["readme"] = frame["readme"].apply(to_text)
     frame = frame[frame["readme"].apply(english)]
     skipped_non_english = after_null - len(frame)
     print(f"Skipped {skipped_non_english} non-english repositories")

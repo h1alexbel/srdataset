@@ -38,6 +38,6 @@ frame = structure(
         "workflows"
     ]
 )
-frame.to_csv(f"{csv}.csv")
+frame.to_csv(f"{csv}.csv", index=False)
 print(f"Structured {csv}.csv ({len(frame)}):")
 print(frame.head())
