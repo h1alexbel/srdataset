@@ -1,5 +1,3 @@
-# The MIT License (MIT)
-#
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,26 +17,37 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: make
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-env:
-  HF_TESTING_TOKEN: ${{ secrets.HF_TESTING_TOKEN }}
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
-      - name: Test
-        run: |
-          make env test
+import os
+import unittest
+import pandas as pd
+
+from steps.inference import infer
+
+"""
+Test case for inference.
+"""
+
+
+class TestInference(unittest.TestCase):
+
+    def test_infers_text(self):
+        embeddings = infer(
+            ["this is testing text"],
+            "sentence-transformers/all-MiniLM-L6-v2",
+            os.environ["HF_TESTING_TOKEN"]
+        )
+        frame = pd.DataFrame(embeddings)
+        columns = len(frame.columns)
+        cexpected = 384
+        rows = len(frame)
+        rexpected = 1
+        self.assertEqual(
+            rows,
+            rexpected,
+            f"Generated embeddings rows count {rows} does not match with expected {rexpected}"
+        )
+        self.assertEqual(
+            columns,
+            cexpected,
+            f"Generated embeddings columns count {columns} does not match with expected {cexpected}"
+        )

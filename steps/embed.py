@@ -1,5 +1,3 @@
-# The MIT License (MIT)
-#
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,26 +17,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: make
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-env:
-  HF_TESTING_TOKEN: ${{ secrets.HF_TESTING_TOKEN }}
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
-      - name: Test
-        run: |
-          make env test
+import os
+import pandas as pd
+from steps.inference import infer
+
+print("Preparing for generating embeddings...")
+checkpoint = "sentence-transformers/all-MiniLM-L6-v2"
+token = os.environ["HF_TOKEN"]
+source = "filtered.csv"
+frame = pd.read_csv(source)
+candidates = ["description", "readme", "topics"]
+print(f"Checkpoint: {checkpoint}")
+print(f"CSV Source: {source}")
+print(f"Candidates: {candidates}")
+
+for candidate in candidates:
+    print(f"Generating embeddings for {candidate}...")
+    embeddings = pd.DataFrame(infer(frame[candidate].tolist(), checkpoint, token))
+    embeddings.to_csv(f"{candidate}-embeddings.csv", index=False)
+    print(f"Generated embeddings for {candidate}:")
+    print(embeddings)

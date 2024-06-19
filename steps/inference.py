@@ -1,5 +1,3 @@
-# The MIT License (MIT)
-#
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,26 +17,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: make
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-env:
-  HF_TESTING_TOKEN: ${{ secrets.HF_TESTING_TOKEN }}
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
-      - name: Test
-        run: |
-          make env test
+import requests
+
+"""
+Infer textual metadata.
+"""
+
+
+def infer(texts, checkpoint, token):
+    return requests.post(
+        f"https://api-inference.huggingface.co/pipeline/feature-extraction/{checkpoint}",
+        headers={
+            "Authorization": f"Bearer {token}"
+        },
+        json={
+            "inputs": texts,
+            "options": {
+                "wait_for_model": True
+            }
+        }
+    ).json()
