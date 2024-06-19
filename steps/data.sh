@@ -27,3 +27,4 @@ set -o pipefail
 cd steps
 $PYTHON structure.py
 $PYTHON filter.py
+$PYTHON embed.py
