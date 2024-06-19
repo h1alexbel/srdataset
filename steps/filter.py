@@ -24,6 +24,8 @@
 """
 Filter dataset.
 """
+import os
 from steps.apply_filter import apply
 
-apply("repos.csv")
+csv = os.environ["CSV"]
+apply(f"{csv}.csv")
