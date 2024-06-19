@@ -18,22 +18,36 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import os
+import unittest
 import pandas as pd
+
 from steps.inference import infer
 
-print("Preparing for generating embeddings...")
-checkpoint = "sentence-transformers/all-MiniLM-L6-v2"
-token = os.environ["HF_TOKEN"]
-source = "filtered.csv"
-frame = pd.read_csv(source)
-candidates = ["description", "readme", "topics"]
-print(f"Checkpoint: {checkpoint}")
-print(f"CSV Source: {source}")
-print(f"Candidates: {candidates}")
+"""
+Test case for inference.
+"""
 
-for candidate in candidates:
-    print(f"Generating embeddings for {candidate}...")
-    embeddings = pd.DataFrame(infer(frame[candidate].tolist(), checkpoint, token))
-    embeddings.to_csv(f"{candidate}-embeddings.csv", index=False)
-    print(f"Generated embeddings for {candidate}:")
-    print(embeddings)
+
+class TestInference(unittest.TestCase):
+
+    def test_infers_text(self):
+        embeddings = infer(
+            ["this is testing text"],
+            "sentence-transformers/all-MiniLM-L6-v2",
+            os.environ["HF_TESTING_TOKEN"]
+        )
+        frame = pd.DataFrame(embeddings)
+        columns = len(frame.columns)
+        cexpected = 384
+        rows = len(frame)
+        rexpected = 1
+        self.assertEqual(
+            rows,
+            rexpected,
+            f"Generated embeddings rows count {rows} does not match with expected {rexpected}"
+        )
+        self.assertEqual(
+            columns,
+            cexpected,
+            f"Generated embeddings columns count {columns} does not match with expected {cexpected}"
+        )

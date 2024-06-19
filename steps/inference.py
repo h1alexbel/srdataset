@@ -17,23 +17,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import os
-import pandas as pd
-from steps.inference import infer
+import requests
 
-print("Preparing for generating embeddings...")
-checkpoint = "sentence-transformers/all-MiniLM-L6-v2"
-token = os.environ["HF_TOKEN"]
-source = "filtered.csv"
-frame = pd.read_csv(source)
-candidates = ["description", "readme", "topics"]
-print(f"Checkpoint: {checkpoint}")
-print(f"CSV Source: {source}")
-print(f"Candidates: {candidates}")
+"""
+Infer textual metadata.
+"""
 
-for candidate in candidates:
-    print(f"Generating embeddings for {candidate}...")
-    embeddings = pd.DataFrame(infer(frame[candidate].tolist(), checkpoint, token))
-    embeddings.to_csv(f"{candidate}-embeddings.csv", index=False)
-    print(f"Generated embeddings for {candidate}:")
-    print(embeddings)
+
+def infer(texts, checkpoint, token):
+    return requests.post(
+        f"https://api-inference.huggingface.co/pipeline/feature-extraction/{checkpoint}",
+        headers={
+            "Authorization": f"Bearer {token}"
+        },
+        json={
+            "inputs": texts,
+            "options": {
+                "wait_for_model": True
+            }
+        }
+    ).json()
