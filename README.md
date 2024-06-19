@@ -10,9 +10,10 @@ SRdataset is an [unlabeled] dataset of GitHub repositories containing SRs
 
 **Motivation**. During work on models for [samples-filter] project, we
 discovered the need for the automation of the dataset building process
-on remote servers, since we need to collect big amount of data being productive
-in our research. In order to do this, we integrated [ghminer] with a few
-infrastructure scripts, and packaged all of that into Docker container.
+on remote servers, since we need to collect automatically a number of GitHub
+repositories of data being productive in our research. In order to do this,
+we integrated [ghminer] with a few scripts, and packaged all of that as Docker
+container.
 
 ## How to use
 
@@ -24,6 +25,7 @@ docker run --detach --name=srdataset --rm --volume "$(pwd):/srdataset" \
   -e "SEARCH_QUERY=<query>" \
   -e "START_DATE=2019-01-01" \
   -e "END_DATE=2024-05-01" \
+  -e "HF_TOKEN=xxx" \
   -e "PATS=pats.txt" \
   --oom-kill-disable \
   abialiauski/srdataset:0.0.1
@@ -32,32 +34,22 @@ docker run --detach --name=srdataset --rm --volume "$(pwd):/srdataset" \
 Where `<query>` is the [search query] to the GitHub API,
 `2019-01-01` is a start date to search the repositories those were created at
 this date, `2024-05-01` is an end to search the repositories those were created
-at this date, `pats.txt` is file contains a number of [GitHub PATs].
+at this date, `xxx` is [HuggingFace token], required for accessing
+[inference endpoint][HuggingFace Inference] in order to generate textual
+embeddings; `pats.txt` is file contains a number of [GitHub PATs].
 
 The building process can take a while. After it completed, you should have
-`dataset.csv` file with all collected repositories. If you included
-`GITHUB_TOKEN`, it should be pushed to `DESTINATION` right into
-`DESTINATION_BRANCH`.
+these files:
 
-## How it works
-
-First, we collect GitHub repositories based on query parameters, with a help of
-[ghminer]. Then, for each repository we compute the following metrics:
-
-* CPD, commits per day
-* RC, published releases to commits ratio
-* IC, total issues to commits ratio
-
-Finally, we clean and structure the dataset into `repos.csv` file, so each row
-contain:
-
-* `name`: repository full name, e.g. `redisson/redisson-examples`.
-* `readme`: repository README.md file.
-* `description`: repository description.
-* `topics`: a set of repository topics, e.g. `[apache, streaming, kafka]`
-* `CPD`: commits per day calculated metric.
-* `RC`: published releases to commits ratio.
-* `IC`: issues to commits ratio.
+* `results.csv` with all collected repositories.
+* `repos.csv` with all preprocessed and filtered repositories.
+* `readme-embeddings.csv` with generated readme embeddings.
+* `description-embeddings.csv` with generated embeddings for description.
+* `topics-embeddings.csv` with generated embeddings for topics.
+* `numerical.csv` with ready-to-cluster repositories with numerical data only.
+* `textual.csv` with ready-to-cluster repositories with textual vectors only.
+* `mix.csv` with ready-to-cluster repositories that contain both: numerical and
+textual vectors.
 
 ## How to contribute
 
@@ -67,7 +59,7 @@ provided they don't violate our quality standards. To avoid frustration,
 before sending us your pull request please run full make build:
 
 ```bash
-make lint test
+make env test
 ```
 
 [unlabeled]: https://en.wikipedia.org/wiki/Unsupervised_learning
@@ -75,4 +67,6 @@ make lint test
 [ghminer]: https://github.com/h1alexbel/ghminer
 [GitHub PAT]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 [GitHub PATs]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+[HuggingFace token]: https://huggingface.co/docs/hub/en/security-tokens
+[HuggingFace Inference]: https://huggingface.co/inference-endpoints/dedicated
 [search query]: https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories

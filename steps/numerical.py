@@ -24,9 +24,9 @@ import os
 import pandas as pd
 
 """
-Prepare dataset with numerics only.
+Prepare dataset with numerical data only.
 """
-print("Preparing numerics dataset...")
+print("Preparing numerical dataset...")
 frame = pd.read_csv(f"{os.environ['CSV']}.csv")
 frame = frame[
     [
@@ -40,6 +40,6 @@ frame = frame[
         "workflows"
     ]
 ]
-frame.to_csv("numerics.csv", index=False)
-print("Numerics dataset:")
+frame.to_csv("numerical.csv", index=False)
+print("Numerical dataset:")
 print(frame)
