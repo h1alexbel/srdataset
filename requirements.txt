@@ -4,3 +4,4 @@ numpy==1.26.4
 beautifulsoup4==4.12.3
 pytest==8.2.1
 langdetect==1.0.9
+requests==2.32.3
