@@ -27,7 +27,7 @@ from steps.inference import infer
 print("Preparing for generating embeddings...")
 checkpoint = os.environ["INFERENCE_CHECKPOINT"]
 token = os.environ["HF_TOKEN"]
-source = "text"
+source = "texts"
 frame = pd.read_csv(f"{source}.csv")
 candidates = ["text"]
 print(f"Checkpoint: {checkpoint}")
