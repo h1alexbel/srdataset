@@ -26,7 +26,7 @@ docker run --detach --name=srdataset --rm --volume "$(pwd):/srdataset" \
   -e "START_DATE=2019-01-01" \
   -e "END_DATE=2024-05-01" \
   -e "HF_TOKEN=xxx" \
-  -e "INFERENCE_ENDPOINT=sentence-transformers/all-MiniLM-L6-v2" \
+  -e "INFERENCE_CHECKPOINT=sentence-transformers/all-MiniLM-L6-v2" \
   -e "PATS=pats.txt" \
   --oom-kill-disable \
   abialiauski/srdataset:0.0.1

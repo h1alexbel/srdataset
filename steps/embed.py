@@ -22,7 +22,7 @@ import pandas as pd
 from steps.inference import infer
 
 print("Preparing for generating embeddings...")
-checkpoint = os.environ["INFERENCE_ENDPOINT"]
+checkpoint = os.environ["INFERENCE_CHECKPOINT"]
 token = os.environ["HF_TOKEN"]
 source = os.environ["CSV"]
 frame = pd.read_csv(f"{source}.csv")
