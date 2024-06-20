@@ -19,21 +19,22 @@
 # SOFTWARE.
 import os
 import pandas as pd
+import torch
+from sentence_transformers.util import semantic_search
+
 from steps.inference import infer
 
-print("Preparing for generating embeddings...")
-checkpoint = "sentence-transformers/all-MiniLM-L6-v2"
-token = os.environ["HF_TOKEN"]
-source = os.environ["CSV"]
-frame = pd.read_csv(f"{source}.csv")
-candidates = ["repo", "description", "readme", "topics"]
-print(f"Checkpoint: {checkpoint}")
-print(f"CSV Source: {source}")
-print(f"Candidates: {candidates}")
+"""
+Find similar text to the head.
+"""
 
-for candidate in candidates:
-    print(f"Generating embeddings for {candidate}...")
-    embeddings = pd.DataFrame(infer(frame[candidate].tolist(), checkpoint, token))
-    embeddings.to_csv(f"{candidate}-embeddings.csv", index=False)
-    print(f"Generated embeddings for {candidate}:")
-    print(embeddings)
+
+def similar(dimension, head):
+    embeddings = pd.read_csv(f"{dimension}-embeddings.csv")
+    dataset = torch.from_numpy(embeddings.to_numpy()).to(torch.float)
+    head_embeddings = torch.FloatTensor(
+        infer([head], os.environ["INFERENCE_CHECKPOINT"], os.environ["HF_TOKEN"])
+    )
+    hits = semantic_search(head_embeddings, dataset, top_k=5)
+    frame = pd.read_csv(f"{os.environ['CSV']}.csv")
+    return [frame[dimension][hits[0][i]['corpus_id']] for i in range(len(hits[0]))]
