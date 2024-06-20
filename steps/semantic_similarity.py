@@ -23,7 +23,6 @@
 """
 Similarity between repository dimensions.
 """
-import numpy as np
 import pandas as pd
 from steps.similar import similar
 
