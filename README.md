@@ -37,7 +37,7 @@ Where `<query>` is the [search query] to the GitHub API,
 this date, `2024-05-01` is an end to search the repositories those were created
 at this date, `xxx` is [HuggingFace token], required for accessing
 [inference endpoint][HuggingFace Inference] in order to generate textual
-embeddings;  `pats.txt` is file contains a number of [GitHub PATs].
+embeddings; `pats.txt` is file contains a number of [GitHub PATs].
 
 The building process can take a while. After it completed, you should have
 these files:
