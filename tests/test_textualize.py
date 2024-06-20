@@ -30,7 +30,7 @@ Test case for textualize.
 class TestTextualize(unittest.TestCase):
 
     def test_textualizes_repos(self):
-        text = textualize("repos.csv").head(1).values.tolist()[0]
+        text = textualize("tests/repos.csv").head(1).values.tolist()[0]
         expected = [
             "blitz-js/blitz;some readme;The Missing Fullstack Toolkit for Next.js;react,prisma",
             "blitz-js/blitz"

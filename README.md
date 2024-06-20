@@ -44,13 +44,12 @@ these files:
 
 * `results.csv` with all collected repositories.
 * `repos.csv` with all preprocessed and filtered repositories.
-* `readme-embeddings.csv` with generated readme embeddings.
-* `description-embeddings.csv` with generated embeddings for description.
-* `topics-embeddings.csv` with generated embeddings for topics.
+* `texts.csv` repository textual metadata used for generating embeddings.
+* `text-embeddings.csv` with ready-to-cluster repositories with textual vectors
+only.
 * `similar.csv` with input textual examples and their top-5 most similar
 analogues from generated embeddings.
 * `numerical.csv` with ready-to-cluster repositories with numerical data only.
-* `textual.csv` with ready-to-cluster repositories with textual vectors only.
 * `mix.csv` with ready-to-cluster repositories that contain both: numerical and
 textual vectors.
 

@@ -31,12 +31,12 @@ Find similar text to the head.
 """
 
 
-def similar(dimension, head):
+def similar(dimension, head, corpus):
     embeddings = pd.read_csv(f"{dimension}-embeddings.csv")
     dataset = torch.from_numpy(embeddings.to_numpy()).to(torch.float)
     head_embeddings = torch.FloatTensor(
         infer([head], os.environ["INFERENCE_CHECKPOINT"], os.environ["HF_TOKEN"])
     )
     hits = semantic_search(head_embeddings, dataset, top_k=5)
-    frame = pd.read_csv(f"{os.environ['CSV']}.csv")
-    return [frame[dimension][hits[0][i]['corpus_id']] for i in range(len(hits[0]))]
+    frame = pd.read_csv(corpus)
+    return [frame["repo"][hits[0][i]['corpus_id']] for i in range(len(hits[0]))]
