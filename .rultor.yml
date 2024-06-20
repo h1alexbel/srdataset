@@ -22,8 +22,11 @@
 ---
 architect:
   - h1alexbel
+assets:
+  huggingface: h1alexbel/home#assets/huggingface
 merge:
   script: |
+    export HF_TESTING_TOKEN=$(cat ../huggingface)
     make env test
 release:
   script: |
