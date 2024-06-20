@@ -43,3 +43,10 @@ class TestSkipNonEnglish(unittest.TestCase):
             english(text),
             f"input text {text} is english, but should not be"
         )
+
+    def test_returns_false_on_failures(self):
+        text = ""
+        self.assertFalse(
+            english(text),
+            f"input text {text} is english, but should not be"
+        )

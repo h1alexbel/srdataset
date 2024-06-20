@@ -31,7 +31,7 @@ def english(text):
     Skips non-english text.
     """
     try:
-        detect(text)
+        result = detect(text) == 'en'
     except:
-        return False
-    return detect(text) == 'en'
+        result = False
+    return result
