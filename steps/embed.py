@@ -24,7 +24,7 @@ from steps.inference import infer
 print("Preparing for generating embeddings...")
 checkpoint = "sentence-transformers/all-MiniLM-L6-v2"
 token = os.environ["HF_TOKEN"]
-source = "filtered.csv"
+source = os.environ["CSV"]
 frame = pd.read_csv(source)
 candidates = ["description", "readme", "topics"]
 print(f"Checkpoint: {checkpoint}")
