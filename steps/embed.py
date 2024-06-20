@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# The MIT License (MIT)
+#
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,9 +27,9 @@ from steps.inference import infer
 print("Preparing for generating embeddings...")
 checkpoint = os.environ["INFERENCE_CHECKPOINT"]
 token = os.environ["HF_TOKEN"]
-source = os.environ["CSV"]
+source = "text"
 frame = pd.read_csv(f"{source}.csv")
-candidates = ["repo", "description", "readme", "topics"]
+candidates = ["text"]
 print(f"Checkpoint: {checkpoint}")
 print(f"CSV Source: {source}")
 print(f"Candidates: {candidates}")
