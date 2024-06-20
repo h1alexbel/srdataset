@@ -46,6 +46,8 @@ these files:
 * `readme-embeddings.csv` with generated readme embeddings.
 * `description-embeddings.csv` with generated embeddings for description.
 * `topics-embeddings.csv` with generated embeddings for topics.
+* `similar.csv` with input textual examples and their top-5 most similar
+analogues from generated embeddings.
 * `numerical.csv` with ready-to-cluster repositories with numerical data only.
 * `textual.csv` with ready-to-cluster repositories with textual vectors only.
 * `mix.csv` with ready-to-cluster repositories that contain both: numerical and
