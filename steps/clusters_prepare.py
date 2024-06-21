@@ -26,10 +26,22 @@ import os
 Prepare clustering dirs.
 """
 models = ["kmeans", "agglomerative", "dbscan", "gmm"]
+subs = [
+    "numerical",
+    "textual",
+    "mix",
+    "numerical",
+    "numerical/members",
+    "textual/members",
+    "mix/members"
+]
 if not os.path.exists("clusters"):
     os.mkdir("clusters")
+    os.mkdir("clusters/source")
 
 for model in models:
     if not os.path.exists(f"clusters/{model}"):
         os.mkdir(f"clusters/{model}")
-        os.mkdir(f"clusters/{model}/members")
+        for sub in subs:
+            if not os.path.exists(f"clusters/{model}/{sub}"):
+                os.mkdir(f"clusters/{model}/{sub}")
