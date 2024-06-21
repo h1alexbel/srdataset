@@ -53,6 +53,32 @@ analogues from generated embeddings.
 * `mix.csv` with ready-to-cluster repositories that contain both: numerical and
 textual vectors.
 
+If you run container with `-e "CLUSTER=true"`, you should have one ZIP file
+named like `clusters-2024-06-21-18:22.zip` and containing these files:
+
+```text
+agglomerative
+  /mix
+    /members
+    ...
+  /numerical
+    /members
+    ...
+  /textual
+    /members
+    ...
+dbscan/... (the same structure)
+gmm/...
+kmeans/...
+source/...
+```
+
+All experiments are grouped by model name: `kmeans`, `dbscan`, `agglomerative`,
+etc. In each that model directory you should have `members` directory and a set
+of plots. `members` contains a set of text files tagged with output cluster
+label e.g. `0.txt`. In `source` you should have all CSV files that were used to
+generate clusters.
+
 ## How to contribute
 
 Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).
