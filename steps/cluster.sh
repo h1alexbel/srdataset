@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
@@ -20,41 +21,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: env install collect metrics test
-.SILENT:
+set -e
+set -o pipefail
 
-## The shell to use.
-SHELL := bash
-
-# Setup environment.
-env:
-	python3 -m pip install --upgrade pip
-	pip3 install -r requirements.txt
-	pip3 install .
-
-# Test.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest tests
-
-# Cluster.
-# @todo #37:30min Look for CLUSTER=true option in order to run clustering.
-#  We should run cluster.sh and zip.sh only if -e "CLUSTER=true" was passed
-#  inside the docker container. Don't forget to remove this puzzle.
-cluster:
-	chmod +x steps/cluster.sh &&./steps/cluster.sh
-	chmod +x steps/zip.sh &&./steps/zip.sh
-
-# Install.
-install:
-	chmod +x steps/install.sh &&./steps/install.sh
-
-# Collect repositories from GitHub API.
-collect:
-	chmod +x steps/collect.sh &&./steps/collect.sh
-
-# Formalize and prepare collected dataset.
-formalize:
-	chmod +x steps/formalize.sh &&./steps/formalize.sh
+# Cluster collected data.
+cd steps
+$PYTHON kmeans_numerical.py
+$PYTHON kmeans_textual.py
+$PYTHON kmeans_mix.py
