@@ -23,9 +23,15 @@
 import pandas as pd
 from sklearn.cluster import AgglomerativeClustering
 from members_to_txt import to_txt
+from steps.plots import Plots
+
+"""
+Agglomerative clustering on numerical dataset.
+"""
 
 frame = pd.read_csv("numerics.csv")
-agglomerative = AgglomerativeClustering(n_clusters=6)
+n_clusters = 6
+agglomerative = AgglomerativeClustering(n_clusters=n_clusters)
 frame["cluster"] = agglomerative.fit_predict(
     frame[
         [
@@ -41,3 +47,13 @@ frame["cluster"] = agglomerative.fit_predict(
 )
 clusters = frame.groupby("cluster")
 to_txt(clusters, "clusters/agglomerative/numerical/members")
+
+Plots(frame, n_clusters).plot(
+    x_features=[
+        "releases", "releases", "releases", "releases", "releases", "releases"
+    ],
+    y_features=[
+        "contributors", "pulls", "commits", "issues", "branches", "workflows"
+    ],
+    prefix="clusters/agglomerative/numerical"
+)

@@ -24,8 +24,9 @@
 set -e
 set -o pipefail
 
-# Cluster collected data.
+# Cluster the data.
 cd steps
 $PYTHON kmeans_numerical.py
-$PYTHON kmeans_textual.py
-$PYTHON kmeans_mix.py
+$PYTHON agglomerative_numerical.py
+$PYTHON dbscan_numerical.py
+$PYTHON gmm_numerical.py
