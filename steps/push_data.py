@@ -38,9 +38,16 @@ outputs = [
 ]
 
 if os.environ["PUSH_TO_HF"]:
+    profile = os.environ["HF_PROFILE"]
     print(f"Pushing outputs: {outputs}, since PUSH_HF is true.")
     api = HfApi()
     for output in outputs:
+        path = f"{profile}/sr-{output}"
+        if not api.repo_exists(path, repo_type="dataset"):
+            api.create_repo(
+                repo_id=path,
+                repo_type="dataset"
+            )
         api.upload_file(
             path_or_fileobj=f"{output}.csv",
             path_in_repo=f"preprocessed/{output}.csv",

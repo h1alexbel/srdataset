@@ -55,7 +55,8 @@ textual vectors.
 
 If you run container with `-e PUSH_TO_HF=true`, you should expect that after
 preprocess, we will push output CSV files to the files to the profile, passed
-to `-e HF_PROFILE`. All outputs will be pushed into datasets with `sr-` prefix.
+to `-e HF_PROFILE`, within provided `HF_TOKEN`. All outputs will be pushed into
+datasets with `sr-` prefix.
 
 If you run container with `-e "CLUSTER=true"`, you should have one ZIP file
 named like `clusters-2024-06-21-18:22.zip` and containing these files:
