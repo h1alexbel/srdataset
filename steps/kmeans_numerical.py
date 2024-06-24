@@ -47,10 +47,11 @@ centroids = kmeans.cluster_centers_
 print(f"Centeroids: {centroids}")
 frame["cluster"] = kmeans.labels_
 
-x_features = ["releases"]
-y_features = ["contributors"]
+plt.figure(figsize=(10, 7))
+x_features = ["releases", "releases", "releases", "releases", "releases", "releases"]
+y_features = ["contributors", "pulls", "commits", "issues", "branches", "workflows"]
 for x_feature, y_feature in zip(x_features, y_features):
-    plt.figure(figsize=(10, 7))
+    plt.clf()
     for cluster in range(8):
         cluster_points = frame[frame["cluster"] == cluster]
         plt.scatter(cluster_points[x_feature], cluster_points[y_feature], label=f'Cluster {cluster}', s=50)
@@ -61,7 +62,5 @@ for x_feature, y_feature in zip(x_features, y_features):
     plt.legend()
     plt.grid(True)
     plt.savefig(f"clusters/kmeans/numerical/{x_feature}-vs-{y_feature}.png")
-
 clusters = frame.groupby('cluster')
-
 to_txt(clusters, "clusters/kmeans/numerical/members")
