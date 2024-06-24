@@ -28,4 +28,4 @@ import os
 from steps.apply_filter import apply
 
 csv = os.environ["CSV"]
-apply(f"{csv}.csv").to_csv(csv, index=False)
+apply(f"{csv}.csv").to_csv("filtered.csv", index=False)

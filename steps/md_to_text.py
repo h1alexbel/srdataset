@@ -28,7 +28,10 @@ Translate markdown to plain text.
 
 
 def to_text(input):
-    return BeautifulSoup(markdown.markdown(input), "html.parser").get_text(
-        separator=' ',
-        strip=True
-    )
+    try:
+        return BeautifulSoup(markdown.markdown(input), "html.parser").get_text(
+            separator=' ',
+            strip=True
+        )
+    except:
+        return None

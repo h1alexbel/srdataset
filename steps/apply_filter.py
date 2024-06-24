@@ -35,7 +35,7 @@ def apply(csv):
     DetectorFactory.seed = 0
     frame = pd.read_csv(csv)
     start = len(frame)
-    print(f"Repositories in {start}")
+    print(f"Repositories in: {start}")
     frame["topics"] = frame["topics"].fillna("[]")
     frame = frame.dropna(subset=["readme", "description"])
     skipped = start - len(frame)
@@ -44,6 +44,7 @@ def apply(csv):
     frame = frame[frame["description"].apply(english)]
     frame["readme"] = frame["readme"].apply(to_text)
     frame = frame[frame["readme"].apply(english)]
+    frame = frame.dropna(subset=["readme"])
     skipped_non_english = after_null - len(frame)
     print(f"Skipped {skipped_non_english} non-english repositories")
     print(f"Total skipped: {skipped + skipped_non_english}")

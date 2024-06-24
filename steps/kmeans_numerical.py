@@ -28,7 +28,7 @@ from members_to_txt import to_txt
 """
 KMeans clustering with numerical dataset.
 """
-frame = pd.read_csv("numerics.csv")
+frame = pd.read_csv("numerical.csv")
 kmeans = KMeans(n_clusters=8, random_state=1)
 kmeans.fit(
     frame[

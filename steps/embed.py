@@ -36,7 +36,7 @@ print(f"Candidates: {candidates}")
 
 for candidate in candidates:
     print(f"Generating embeddings for {candidate}...")
-    embeddings = pd.DataFrame(infer(frame[candidate].tolist(), checkpoint, token))
+    embeddings = pd.DataFrame(infer(frame[candidate].head(500).tolist(), checkpoint, token))
     embeddings.to_csv(f"{candidate}-embeddings.csv", index=False)
     print(f"Generated embeddings for {candidate}:")
     print(embeddings)
