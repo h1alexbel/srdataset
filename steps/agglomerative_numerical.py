@@ -21,16 +21,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import pandas as pd
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
+from sklearn.cluster import AgglomerativeClustering
 from members_to_txt import to_txt
 
-"""
-KMeans clustering with numerical dataset.
-"""
 frame = pd.read_csv("numerics.csv")
-kmeans = KMeans(n_clusters=8, random_state=1)
-kmeans.fit(
+agglomerative = AgglomerativeClustering(n_clusters=6)
+frame["cluster"] = agglomerative.fit_predict(
     frame[
         [
             "releases",
@@ -43,25 +39,5 @@ kmeans.fit(
         ]
     ]
 )
-centroids = kmeans.cluster_centers_
-print(f"Centeroids: {centroids}")
-frame["cluster"] = kmeans.labels_
-
-x_features = ["releases"]
-y_features = ["contributors"]
-for x_feature, y_feature in zip(x_features, y_features):
-    plt.figure(figsize=(10, 7))
-    for cluster in range(8):
-        cluster_points = frame[frame["cluster"] == cluster]
-        plt.scatter(cluster_points[x_feature], cluster_points[y_feature], label=f'Cluster {cluster}', s=50)
-    plt.scatter(centroids[:, 0], centroids[:, 1], c='black', marker='X', s=100, label='Centroids')
-    plt.title(f'K-means Clustering ({x_feature} vs. {y_feature})')
-    plt.xlabel(x_feature)
-    plt.ylabel(y_feature)
-    plt.legend()
-    plt.grid(True)
-    plt.savefig(f"clusters/kmeans/numerical/{x_feature}-vs-{y_feature}.png")
-
-clusters = frame.groupby('cluster')
-
-to_txt(clusters, "clusters/kmeans/numerical/members")
+clusters = frame.groupby("cluster")
+to_txt(clusters, "clusters/agglomerative/numerical/members")
