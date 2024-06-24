@@ -23,4 +23,4 @@
 import os
 from steps.textualize import textualize
 
-textualize(f"{os.environ['CSV']}.csv").to_csv("texts.csv", index=False)
+textualize("filtered.csv").to_csv("texts.csv", index=False)
