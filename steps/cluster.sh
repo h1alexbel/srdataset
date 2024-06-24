@@ -25,8 +25,13 @@ set -e
 set -o pipefail
 
 # Cluster the data.
-cd steps
-$PYTHON kmeans_numerical.py
-$PYTHON agglomerative_numerical.py
-$PYTHON dbscan_numerical.py
-$PYTHON gmm_numerical.py
+if [[ "$CLUSTER" = "true" ]]; then
+  echo "Run clustering since CLUSTER=true..."
+  cd steps
+  $PYTHON kmeans_numerical.py
+  $PYTHON agglomerative_numerical.py
+  $PYTHON dbscan_numerical.py
+  $PYTHON gmm_numerical.py
+else
+  exit 0
+fi

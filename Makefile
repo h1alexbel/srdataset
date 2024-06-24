@@ -40,9 +40,6 @@ test:
 	python3 -m pytest tests
 
 # Cluster.
-# @todo #37:30min Look for CLUSTER=true option in order to run clustering.
-#  We should run cluster.sh and zip.sh only if -e "CLUSTER=true" was passed
-#  inside the docker container. Don't forget to remove this puzzle.
 cluster:
 	chmod +x steps/cluster.sh &&./steps/cluster.sh
 	chmod +x steps/zip.sh &&./steps/zip.sh
