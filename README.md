@@ -42,8 +42,8 @@ embeddings; `pats.txt` is file contains a number of [GitHub PATs].
 The building process can take a while. After it completed, you should have
 these files:
 
-* `results.csv` with all collected repositories.
-* `repos.csv` with all preprocessed and filtered repositories.
+* `repos.csv` with all collected repositories.
+* `filtered.csv` with all preprocessed and filtered repositories.
 * `texts.csv` repository textual metadata used for generating embeddings.
 * `text-embeddings.csv` with ready-to-cluster repositories with textual vectors
 only.
