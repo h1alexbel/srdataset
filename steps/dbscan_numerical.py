@@ -26,7 +26,7 @@ from sklearn.cluster import DBSCAN
 
 from steps.members_to_txt import to_txt
 
-frame = pd.read_csv("numerics.csv")
+frame = pd.read_csv("numerical.csv")
 dbscan = DBSCAN(eps=50, min_samples=30)
 frame["cluster"] = dbscan.fit_predict(
     frame[

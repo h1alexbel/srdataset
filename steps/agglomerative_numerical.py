@@ -29,7 +29,7 @@ from steps.plots import Plots
 Agglomerative clustering on numerical dataset.
 """
 
-frame = pd.read_csv("numerics.csv")
+frame = pd.read_csv("numerical.csv.csv")
 n_clusters = 6
 agglomerative = AgglomerativeClustering(n_clusters=n_clusters)
 frame["cluster"] = agglomerative.fit_predict(

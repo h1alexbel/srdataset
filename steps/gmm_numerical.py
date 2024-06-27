@@ -25,7 +25,7 @@ from sklearn.mixture import GaussianMixture
 from steps.members_to_txt import to_txt
 from steps.plots import Plots
 
-frame = pd.read_csv("numerics.csv")
+frame = pd.read_csv("numerical.csv")
 n_clusters = 7
 gmm = GaussianMixture(n_components=n_clusters, random_state=1)
 frame["cluster"] = gmm.fit_predict(
