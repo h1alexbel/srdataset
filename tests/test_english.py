@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import unittest
+import pytest
 
 from steps.english import english
 
@@ -46,6 +47,18 @@ class TestSkipNonEnglish(unittest.TestCase):
 
     def test_returns_false_on_failures(self):
         text = ""
+        self.assertFalse(
+            english(text),
+            f"input text {text} is english, but should not be"
+        )
+
+    # @todo #29:30min Language detection produces inaccurate results for mixed
+    #  language text. We should fix that in order to filter out more
+    #  repositories with non-english texts. Don't forget to remove this puzzle.
+    @pytest.mark.skip
+    def test_returns_false_on_mixed(self):
+        text = ("clash节点、免费clash节点、免费节点、免费梯子、clash科学上网、clash翻墙、clash订阅链接、clash for "
+                "Windows、clash教程、免费公益节点、最新clash免费节点订阅地址、clash免费节点每日更新")
         self.assertFalse(
             english(text),
             f"input text {text} is english, but should not be"
