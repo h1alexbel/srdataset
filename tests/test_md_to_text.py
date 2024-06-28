@@ -21,8 +21,6 @@
 # SOFTWARE.
 import unittest
 
-from langdetect import DetectorFactory
-
 from steps.md_to_text import to_text
 
 """
