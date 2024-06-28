@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import unittest
+
+from langdetect import DetectorFactory
+
 from steps.md_to_text import to_text
 
 """
@@ -52,4 +55,16 @@ class TestMdToText(unittest.TestCase):
             text,
             expected,
             f"Translated text {text} does not match with expected {expected}"
+        )
+
+    def test_transforms_chinese(self):
+        with open("cn.md") as f: content = f.read()
+        transformed = to_text(
+            content
+        )
+        with open("cn-transformed.txt") as f: expected = f.read()
+        self.assertEqual(
+            expected,
+            transformed,
+            f"Transformed text {transformed} for ({input}) does not match with expected {expected}"
         )

@@ -21,6 +21,7 @@
 # SOFTWARE.
 import unittest
 import pytest
+from langdetect import DetectorFactory
 
 from steps.english import english
 
@@ -62,4 +63,12 @@ class TestSkipNonEnglish(unittest.TestCase):
         self.assertFalse(
             english(text),
             f"input text {text} is english, but should not be"
+        )
+
+    def test_returns_false_on_prepared_chinese(self):
+        DetectorFactory.seed = 0
+        with open("cn-prepared.txt") as f: content = f.read()
+        self.assertFalse(
+            english(content),
+            f"input text {content} is english, but should not be"
         )
