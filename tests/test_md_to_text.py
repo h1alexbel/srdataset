@@ -56,11 +56,11 @@ class TestMdToText(unittest.TestCase):
         )
 
     def test_transforms_chinese(self):
-        with open("cn.md") as f: content = f.read()
+        with open("tests/cn.md") as f: content = f.read()
         transformed = to_text(
             content
         )
-        with open("cn-transformed.txt") as f: expected = f.read()
+        with open("tests/cn-transformed.txt") as f: expected = f.read()
         self.assertEqual(
             expected,
             transformed,

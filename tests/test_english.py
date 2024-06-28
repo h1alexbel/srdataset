@@ -67,7 +67,7 @@ class TestSkipNonEnglish(unittest.TestCase):
 
     def test_returns_false_on_prepared_chinese(self):
         DetectorFactory.seed = 0
-        with open("cn-prepared.txt") as f: content = f.read()
+        with open("tests/cn-prepared.txt") as f: content = f.read()
         self.assertFalse(
             english(content),
             f"input text {content} is english, but should not be"
