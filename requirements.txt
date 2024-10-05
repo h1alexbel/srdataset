@@ -1,6 +1,6 @@
 pandas==2.2.2
 markdown==3.6
-numpy==1.26.4
+numpy==2.1.2
 beautifulsoup4==4.12.3
 langdetect==1.0.9
 requests==2.32.3
