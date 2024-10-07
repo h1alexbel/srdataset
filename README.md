@@ -1,5 +1,7 @@
 # srdataset
 
+**Attention!** This repository is out of date. Repository and research moved to [h1alexbel/sr-detection](github.com/h1alexbel/sr-detection).
+
 [![py](https://github.com/h1alexbel/srdataset/actions/workflows/make.yml/badge.svg)](https://github.com/h1alexbel/srdataset/actions/workflows/make.yml)
 [![PDD status](http://www.0pdd.com/svg?name=h1alexbel/srdataset)](http://www.0pdd.com/p?name=h1alexbel/srdataset)
 [![Hits-of-Code](https://hitsofcode.com/github/h1alexbel/srdataset)](https://hitsofcode.com/view/github/h1alexbel/srdataset)
